@@ -1,16 +1,23 @@
 import * as React from "react";
-import { ping } from "../api/ping";
-import { server } from "../config";
+import { connect } from "react-redux";
+import { newLoginThunk } from "../redux/thunks";
+import { ThunkDispatch } from "redux-thunk";
+import { Action } from "../redux/actions";
+import { State } from "../redux/store"
 
 interface Props {}
 
-interface State {
+interface DispatchProps {
+  login: (username: string, password: string) => void
+}
+
+interface ComponentState {
   username: string;
   password: string;
 }
 
-export class Login extends React.Component<Props, State> {
-  constructor(props: Props) {
+class LoginComponent extends React.Component<Props & DispatchProps, ComponentState> {
+  constructor(props: Props & DispatchProps) {
     super(props);
     this.state = {
       username: "",
@@ -20,7 +27,7 @@ export class Login extends React.Component<Props, State> {
 
   private onSubmit = (event: any) => {
     event.preventDefault();
-    ping(server, this.state.username, this.state.password)
+    this.props.login(this.state.username, this.state.password)
   };
 
   private onUsernameChange = (event: any) => {
@@ -45,7 +52,7 @@ export class Login extends React.Component<Props, State> {
         <label>
           password
           <input
-            type="password"
+            type="password" 
             value={this.state.password}
             onChange={this.onPasswordChange}
           />
@@ -55,3 +62,13 @@ export class Login extends React.Component<Props, State> {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch: ThunkDispatch<State, {}, Action>) => ({
+  login: (username: string, password: string) => {
+    dispatch(newLoginThunk(username, password))
+  }
+})
+
+export const Login = connect<{}, DispatchProps, Props, State>(
+  null, mapDispatchToProps
+)(LoginComponent) 

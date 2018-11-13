@@ -1,3 +1,3 @@
 import { SetTokenAction } from "./actionCreators";
 
-export type Action = SetTokenAction
+export type Action = SetTokenAction 
