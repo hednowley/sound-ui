@@ -4,8 +4,9 @@ import { server } from "../config";
 import { newSetTokenAction } from "./actionCreators";
 import { ActionCreator } from "redux";
 import { Action } from "./actions";
+import { Response } from "../api/response";
 
-type ThunkCreator = ActionCreator<ThunkAction<{}, State, {}, Action>>
+type ThunkCreator = ActionCreator<ThunkAction<{}, State, {}, Action>>;
 
 export const newLoginThunk: ThunkCreator = (
   username: string,
@@ -26,8 +27,16 @@ export const newLoginThunk: ThunkCreator = (
         // Break
       }
 
-      const token = await response.text();
-      dispatch(newSetTokenAction(token));
+      const json = (await response.json()) as Response;
+      console.log(json);
+
+      if (json.status == "fail") {
+        alert(json.data);
+      }
+
+      if (json.status == "success") {
+        dispatch(newSetTokenAction(json.data.token));
+      }
     } catch (error) {
       // dispatch({});
     }
