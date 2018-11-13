@@ -1,3 +1,3 @@
-export interface Store {
-    Token: string
+export interface State {
+  Token: string;
 }
