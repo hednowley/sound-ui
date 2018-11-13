@@ -1,11 +1,11 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./source/main.ts",
+  entry: "./source/main.tsx",
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(ts|tsx)$/,
         use: "ts-loader",
         exclude: /node_modules/
       }
@@ -15,7 +15,7 @@ module.exports = {
     contentBase: "./dist"
   },
   resolve: {
-    extensions: [".ts", ".js"]
+    extensions: [".ts", ".tsx", ".js"]
   },
   mode: "development",
   output: {

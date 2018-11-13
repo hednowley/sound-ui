@@ -3,8 +3,9 @@
     "noImplicitAny": true,
     "module": "es6",
     "target": "es6",
-    "allowJs": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "jsx": "react",
+    "moduleResolution": "node"
   },
   "exclude": ["node_modules", "dist", "lib"]
 }
