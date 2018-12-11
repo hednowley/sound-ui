@@ -4,7 +4,6 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { rootReducer } from "./redux/reducers/root-reducer";
-import { App } from "./components/app";
 import { PersistGate } from "redux-persist/integration/react";
 import {
     persistStore,
@@ -14,6 +13,7 @@ import {
 } from "redux-persist";
 import storageSession from "redux-persist/lib/storage/session";
 import { serialise, deserialise } from "./utils/serialiser";
+import { App } from "./containers/app";
 
 /**
  * redux-persist serialises the store with JSON, which doesn't support maps.

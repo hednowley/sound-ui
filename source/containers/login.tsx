@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { RootStore } from "../redux/store/root";
 import { Dispatcher } from "../redux/dispatcher";
 import { Login } from "../redux/action-creators/auth-action-creators";
+import { TextInput } from "../components/form/text-input";
+import { SubmitButton } from "../components/form/submit-button";
 
 interface Props {}
 
@@ -15,7 +17,7 @@ interface ComponentState {
     password: string;
 }
 
-class LoginComponent extends React.Component<
+class LoginComponent extends React.PureComponent<
     Props & DispatchProps,
     ComponentState
 > {
@@ -27,39 +29,38 @@ class LoginComponent extends React.Component<
         };
     }
 
-    private onSubmit = (event: any) => {
-        event.preventDefault();
+    private onSubmit = () => {
         this.props.login(this.state.username, this.state.password);
     };
 
-    private onUsernameChange = (event: any) => {
-        this.setState({ username: event.target.value });
+    private onUsernameChange = (str: string) => {
+        this.setState({ username: str });
     };
 
-    private onPasswordChange = (event: any) => {
-        this.setState({ password: event.target.value });
+    private onPasswordChange = (str: string) => {
+        this.setState({ password: str });
     };
 
     render() {
         return (
             <form onSubmit={this.onSubmit}>
                 <label>
-                    username
-                    <input
+                    <TextInput
+                        label="username"
                         type="text"
                         value={this.state.username}
                         onChange={this.onUsernameChange}
                     />
                 </label>
                 <label>
-                    password
-                    <input
+                    <TextInput
                         type="password"
+                        label="password"
                         value={this.state.password}
                         onChange={this.onPasswordChange}
                     />
                 </label>
-                <input type="submit" value="Submit" />
+                <SubmitButton label="go" onClick={this.onSubmit} />
             </form>
         );
     }
