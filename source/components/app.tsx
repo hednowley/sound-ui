@@ -1,15 +1,15 @@
 import * as React from "react";
-import { Login } from "./login";
+import { LoginPage } from "./login";
 
 interface Props {}
 
 export class App extends React.Component<Props> {
-	render() {
-		return (
-			<div>
-				welcome
-				<Login />
-			</div>
-		);
-	}
+    render() {
+        return (
+            <div>
+                welcome
+                <LoginPage />
+            </div>
+        );
+    }
 }

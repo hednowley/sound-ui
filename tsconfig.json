@@ -1,11 +1,12 @@
 {
-  "compilerOptions": {
-    "noImplicitAny": true,
-    "module": "es6",
-    "target": "es6",
-    "outDir": "dist",
-    "jsx": "react",
-    "moduleResolution": "node"
-  },
-  "exclude": ["node_modules", "dist", "lib"]
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "module": "es6",
+        "target": "es6",
+        "sourceMap": true,
+        "outDir": "dist",
+        "jsx": "react",
+        "moduleResolution": "node"
+    },
+    "exclude": ["node_modules", "dist", "lib"]
 }

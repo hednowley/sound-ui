@@ -1,3 +1,3 @@
 export enum ActionType {
-	SET_TOKEN
+    SET_TOKEN
 }
