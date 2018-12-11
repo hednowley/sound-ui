@@ -1,4 +1,4 @@
 export type Response = {
-    status: string;
+    status: "success" | "fail" | "error";
     data: any;
 };

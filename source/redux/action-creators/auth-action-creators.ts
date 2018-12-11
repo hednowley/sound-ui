@@ -13,34 +13,35 @@ export const Logout: LogoutAction = {
     type: ActionType.LOGOUT
 };
 
-export const Authenticate = (username: string, password: string): Thunk => {
-    return async dispatch => {
-        try {
-            const response = await fetch(`${SERVER}/api/authenticate`, {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ username: username, password: password })
-            });
+export const Authenticate = (
+    username: string,
+    password: string
+): Thunk => async dispatch => {
+    try {
+        const response = await fetch(`${SERVER}/api/authenticate`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username: username, password: password })
+        });
 
-            if (response.status != 200) {
-                // Break
-            }
-
-            const json = (await response.json()) as Response;
-            console.log(json);
-
-            if (json.status == "fail") {
-                alert(json.data);
-            }
-
-            if (json.status == "success") {
-                dispatch(Login(json.data.token));
-            }
-        } catch (error) {
-            // dispatch({});
+        if (response.status != 200) {
+            // Break
         }
-    };
+
+        const json = (await response.json()) as Response;
+        console.log(json);
+
+        if (json.status == "fail") {
+            alert(json.data);
+        }
+
+        if (json.status == "success") {
+            dispatch(Login(json.data.token));
+        }
+    } catch (error) {
+        // dispatch({});
+    }
 };

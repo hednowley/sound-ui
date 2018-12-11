@@ -1,4 +1,5 @@
 export enum ActionType {
     LOGIN,
-    LOGOUT
+    LOGOUT,
+    CACHE_ARTISTS
 }

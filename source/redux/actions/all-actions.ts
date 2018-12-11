@@ -1,8 +1,9 @@
 import { AuthAction } from "./auth-actions";
 import { ThunkAction } from "redux-thunk";
 import { RootStore } from "../store/root";
+import { DataAction } from "./data-actions";
 
-export type ReduxAction = AuthAction;
+export type ReduxAction = AuthAction | DataAction;
 
 /**
  * Any action which can dispatch direct actions to the Redux store.
