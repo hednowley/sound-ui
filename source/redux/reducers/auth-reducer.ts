@@ -7,11 +7,19 @@ export const authReducer = (
     action: ReduxAction
 ): AuthStore => {
     switch (action.type) {
-        case ActionType.SET_TOKEN: {
-            console.log(action.token);
+        case ActionType.LOGIN: {
             return {
                 ...store,
-                Token: action.token
+                isLoggedIn: true,
+                token: action.token
+            };
+        }
+
+        case ActionType.LOGOUT: {
+            return {
+                ...store,
+                isLoggedIn: false,
+                token: null
             };
         }
 

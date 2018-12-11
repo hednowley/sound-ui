@@ -1,27 +1,31 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { connect, MapStateToProps } from "react-redux";
 import { RootStore } from "../redux/store/root";
 import { Dispatcher } from "../redux/dispatcher";
-import { Login } from "../redux/action-creators/auth-action-creators";
+import { Authenticate } from "../redux/action-creators/auth-action-creators";
 import { TextInput } from "../components/form/text-input";
 import { SubmitButton } from "../components/form/submit-button";
+import { Redirect, RouteComponentProps } from "react-router-dom";
+import { Pages } from "../constants/pages";
 
-interface Props {}
-
-interface DispatchProps {
+type DispatchProps = {
     login: (username: string, password: string) => void;
-}
+};
 
-interface ComponentState {
+type StateProps = {
+    isLoggedIn: boolean;
+};
+
+type ComponentState = {
     username: string;
     password: string;
-}
+};
 
 class LoginComponent extends React.PureComponent<
-    Props & DispatchProps,
+    StateProps & DispatchProps & RouteComponentProps,
     ComponentState
 > {
-    constructor(props: Props & DispatchProps) {
+    constructor(props: StateProps & DispatchProps & RouteComponentProps) {
         super(props);
         this.state = {
             username: "",
@@ -42,6 +46,14 @@ class LoginComponent extends React.PureComponent<
     };
 
     render() {
+        if (this.props.isLoggedIn) {
+            const from: string =
+                this.props.location.state && this.props.location.state.from
+                    ? this.props.location.state.from
+                    : Pages.Home;
+            return <Redirect to={from} />;
+        }
+
         return (
             <form onSubmit={this.onSubmit}>
                 <label>
@@ -66,13 +78,17 @@ class LoginComponent extends React.PureComponent<
     }
 }
 
+const mapStateToProps: MapStateToProps<StateProps, {}, RootStore> = store => ({
+    isLoggedIn: store.auth.isLoggedIn
+});
+
 const mapDispatchToProps = (dispatch: Dispatcher) => ({
     login: (username: string, password: string) => {
-        dispatch(Login(username, password));
+        dispatch(Authenticate(username, password));
     }
 });
 
-export const LoginPage = connect<{}, DispatchProps, Props, RootStore>(
-    null,
+export const LoginPage = connect<{}, DispatchProps, {}, RootStore>(
+    mapStateToProps,
     mapDispatchToProps
 )(LoginComponent);

@@ -1,5 +1,8 @@
 export interface AuthStore {
-    Token?: string;
+    isLoggedIn: boolean;
+    token?: string;
 }
 
-export const Initial: AuthStore = {};
+export const Initial: AuthStore = {
+    isLoggedIn: false
+};

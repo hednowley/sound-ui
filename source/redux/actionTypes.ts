@@ -1,3 +1,4 @@
 export enum ActionType {
-    SET_TOKEN
+    LOGIN,
+    LOGOUT
 }

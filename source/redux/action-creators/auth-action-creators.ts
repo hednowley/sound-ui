@@ -1,15 +1,19 @@
 import { ActionType } from "../actionTypes";
 import { Thunk } from "../actions/all-actions";
 import { SERVER } from "../../config";
-import { SetTokenAction } from "../actions/auth-actions";
+import { LoginAction, LogoutAction } from "../actions/auth-actions";
 import { Response } from "../../api-entities/response";
 
-export const SetToken = (token: string): SetTokenAction => ({
-    type: ActionType.SET_TOKEN,
+export const Login = (token: string): LoginAction => ({
+    type: ActionType.LOGIN,
     token: token
 });
 
-export const Login = (username: string, password: string): Thunk => {
+export const Logout: LogoutAction = {
+    type: ActionType.LOGOUT
+};
+
+export const Authenticate = (username: string, password: string): Thunk => {
     return async dispatch => {
         try {
             const response = await fetch(`${SERVER}/api/authenticate`, {
@@ -33,7 +37,7 @@ export const Login = (username: string, password: string): Thunk => {
             }
 
             if (json.status == "success") {
-                dispatch(SetToken(json.data.token));
+                dispatch(Login(json.data.token));
             }
         } catch (error) {
             // dispatch({});
